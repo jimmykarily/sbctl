@@ -153,3 +153,11 @@ func Exec(c string) error {
 	}
 	return nil
 }
+
+func ExecWithOutput(c string) (string, error) {
+	args := strings.Split(c, " ")
+	cmd := exec.Command(args[0], args[1:]...)
+	b, err := cmd.CombinedOutput()
+
+	return string(b), err
+}
