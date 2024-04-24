@@ -3,7 +3,10 @@ on: [push, pull_request]
 jobs:
    arch:
       runs-on: ubuntu-latest
-      container: archlinux:latest
+      container:
+         image: archlinux:latest
+         volumes:
+            - /dev/kvm:/dev/kvm
       steps:
          - name: Enable KVM group perms
            run: |
