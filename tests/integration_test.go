@@ -57,6 +57,7 @@ func TestEnrollement(t *testing.T) {
 
 	WithVM(t, func(vm *VMTest) {
 		t.Run("Enroll keys", vm.RunTests("github.com/foxboron/sbctl/tests/integrations/enroll_keys"))
+		t.Run("List enrolled keys", vm.RunTests("github.com/foxboron/sbctl/tests/integrations/list_enrolled_keys"))
 	})
 }
 
