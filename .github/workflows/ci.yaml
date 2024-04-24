@@ -5,12 +5,13 @@ jobs:
       runs-on: ubuntu-latest
       container:
          image: archlinux:latest
-         volumes:
-            - /dev/kvm:/dev/kvm
+         # volumes:
+         #    - /dev/kvm:/dev/kvm
+         options: --device /dev/kvm
       steps:
-         - name: Enable KVM group perms
-           run: |
-               setfacl -m u:root:rwx /dev/kvm
+         # - name: Enable KVM group perms
+         #   run: |
+         #       setfacl -m u:root:rwx /dev/kvm
          - run: pacman --noconfirm --noprogressbar -Syu
          - run: pacman --noconfirm --noprogressbar -S make go asciidoc gcc git edk2-ovmf qemu-system-x86
          - uses: actions/checkout@v1
