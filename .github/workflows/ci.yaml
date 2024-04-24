@@ -11,6 +11,7 @@ jobs:
          - run: git config --global --add safe.directory $(pwd)
          - run: make
          - run: make test
+         - run: make integration
          - run: GOBIN=/usr/bin make lint
    void:
       runs-on: ubuntu-latest
@@ -23,4 +24,5 @@ jobs:
          - run: git config --global --add safe.directory $(pwd)
          - run: make
          - run: make test
+         - run: make integration
          - run: GOBIN=/usr/bin make lint
