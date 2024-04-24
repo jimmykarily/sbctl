@@ -10,6 +10,7 @@ jobs:
       steps:
          - name: Enable KVM group perms
            run: |
+               whoami
                setfacl -m u:runner:rwx /dev/kvm
          - run: pacman --noconfirm --noprogressbar -Syu
          - run: pacman --noconfirm --noprogressbar -S make go asciidoc gcc git edk2-ovmf qemu-system-x86
