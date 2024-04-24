@@ -6,32 +6,26 @@ import (
 	"github.com/foxboron/go-uefi/efi"
 	"github.com/foxboron/sbctl/tests/utils"
 	"github.com/hugelgupf/vmtest/guest"
+	. "github.com/onsi/gomega"
 )
 
 func TestEnrollKeys(t *testing.T) {
+	g := NewWithT(t)
+
 	guest.SkipIfNotInVM(t)
 
-	if efi.GetSecureBoot() {
-		t.Fatal("in secure boot mode")
-	}
-
-	if !efi.GetSetupMode() {
-		t.Fatal("not in setup mode")
-	}
+	g.Expect(efi.GetSecureBoot()).To(BeFalse(), "should not be in secure boot mode")
+	g.Expect(efi.GetSetupMode()).To(BeTrue(), "should be in setup mode")
 
 	utils.Exec("rm -rf /usr/share/secureboot")
 	utils.Exec("sbctl status")
 	utils.Exec("sbctl create-keys")
-	if out, err := utils.ExecWithOutput("sbctl enroll-keys"); err == nil {
-		t.Fatalf("Expected error about \"Could not find any TPM Eventlog in the system\", none happened. Command output: %s", out)
-	}
+	out, err := utils.ExecWithOutput("sbctl enroll-keys")
+	g.Expect(err).To(HaveOccurred())
+	g.Expect(out).To(MatchRegexp("Could not find any TPM Eventlog in the system"))
 
-	if out, err := utils.ExecWithOutput("sbctl enroll-keys --yes-this-might-brick-my-machine"); err != nil {
-		t.Fatalf("%s: %s", err.Error(), out)
-	}
+	out, err = utils.ExecWithOutput("sbctl enroll-keys --yes-this-might-brick-my-machine")
+	g.Expect(err).ToNot(HaveOccurred(), out)
 
-	if efi.GetSetupMode() {
-		t.Fatal("in setup mode")
-	}
-
+	g.Expect(efi.GetSetupMode()).To(BeFalse(), "should no longer be in setup mode")
 }

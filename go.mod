@@ -9,6 +9,7 @@ require (
 	github.com/google/go-attestation v0.5.1
 	github.com/google/uuid v1.3.0
 	github.com/hugelgupf/vmtest v0.0.0-20240110072021-f6f07acb7aa1
+	github.com/onsi/gomega v1.7.1
 	github.com/spf13/afero v1.9.3
 	github.com/spf13/cobra v1.1.3
 	golang.org/x/crypto v0.16.0
@@ -49,5 +50,6 @@ require (
 	golang.org/x/sync v0.5.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/tools v0.16.1 // indirect
+	gopkg.in/yaml.v2 v2.4.0 // indirect
 	src.elv.sh v0.16.0-rc1.0.20220116211855-fda62502ad7f // indirect
 )
