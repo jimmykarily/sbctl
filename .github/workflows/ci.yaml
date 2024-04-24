@@ -10,9 +10,7 @@ jobs:
       steps:
          - name: Enable KVM group perms
            run: |
-               echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | tee /etc/udev/rules.d/99-kvm4all.rules
-               udevadm control --reload-rules
-               udevadm trigger --name-match=kvm
+               setfacl -m u:runner:rwx /dev/kvm
          - run: pacman --noconfirm --noprogressbar -Syu
          - run: pacman --noconfirm --noprogressbar -S make go asciidoc gcc git edk2-ovmf qemu-system-x86
          - uses: actions/checkout@v1
