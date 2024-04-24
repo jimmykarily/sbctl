@@ -6,7 +6,7 @@ jobs:
       container: archlinux:latest
       steps:
          - run: pacman --noconfirm --noprogressbar -Syu
-         - run: pacman --noconfirm --noprogressbar -S make go asciidoc gcc git edk2-ovmf
+         - run: pacman --noconfirm --noprogressbar -S make go asciidoc gcc git edk2-ovmf qemu-system-x86
          - uses: actions/checkout@v1
          - run: git config --global --add safe.directory $(pwd)
          - run: make
